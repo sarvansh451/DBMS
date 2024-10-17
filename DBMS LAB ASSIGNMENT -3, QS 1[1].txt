@@ -1,0 +1,380 @@
+
+SQL*Plus: Release 11.2.0.2.0 Production on Sat Mar 17 13:48:31 2024
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> CONNECT SYSTEM AS SYSDBA
+Enter password:
+Connected.
+SQL> -- Create the STUDENT_2 table
+SQL> CREATE TABLE STUDENT_2 (
+  2      Student_Name VARCHAR(50) NOT NULL,
+  3      Roll VARCHAR(20) UNIQUE,
+  4      Department VARCHAR(50),
+  5      Age INT CHECK (Age BETWEEN 18 AND 28),
+  6      Gender VARCHAR(10) CHECK (Gender IN ('Male', 'Female')),
+  7      Semester INT,
+  8      CGPA DECIMAL(3, 2) NOT NULL
+  9  );
+
+Table created.
+
+SQL>
+SQL> -- Insert sample data into the table
+SQL> INSERT INTO STUDENT_2 VALUES('Shiv', I01, 'IT', 28, 'Male', 7, 8.5);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT_2 VALUES('Kaushal', I02, 'IT', 27, 'Male', 7, 9.5);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT_2 VALUES('Pragyan', I03, 'IT', 25, 'Female', 7, 7.5);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT_2 VALUES('Seenu',C01, 'CSE', 25, 'Female', 8, 9.5);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT_2 VALUES('Kunal', C02, 'CSE', 28, 'Male', 8, 9.35);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT_2 VALUES('Lokesh',C03, 'CSE', 24, 'Male', 8, 8);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT_2 VALUES('Amit', E01, 'ETC', 27, 'Male', 6, 9.2);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT_2 VALUES('Amrita', E02, 'ETC', 22, 'Female', 6, 7.45);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT_2 VALUES('Tarkeshwar', E03, 'EEE', 26, 'Male', 6, 8.45);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT_2 VALUES('Neha', C04, 'CSE', 23, 'Female', 6, 8.45);
+
+1 row created.
+
+SQL>
+SQL> -- a) Display the content of the table
+SQL> SELECT * FROM STUDENT_2;
+
+STUDENT_NAME                                             ROLL
+-------------------------------------------------- ----------
+DEPARTMENT                                                AGE GENDER
+-------------------------------------------------- ---------- ----------
+  SEMESTER       CGPA
+---------- ----------
+Shiv                                                      I01
+IT                                                         28 Male
+         7        8.5
+
+Kaushal                                                   I02
+IT                                                         27 Male
+         7        9.5
+
+STUDENT_NAME                                             ROLL
+-------------------------------------------------- ----------
+DEPARTMENT                                                AGE GENDER
+-------------------------------------------------- ---------- ----------
+  SEMESTER       CGPA
+---------- ----------
+
+Pragyan                                                   I03
+IT                                                         25 Female
+         7        7.5
+
+Seenu                                                     C01
+CSE                                                        25 Female
+
+STUDENT_NAME                                             ROLL
+-------------------------------------------------- ----------
+DEPARTMENT                                                AGE GENDER
+-------------------------------------------------- ---------- ----------
+  SEMESTER       CGPA
+---------- ----------
+         8        9.5
+
+Kunal                                                     C02
+CSE                                                        28 Male
+         8       9.35
+
+Lokesh                                                    C03
+
+STUDENT_NAME                                             ROLL
+-------------------------------------------------- ----------
+DEPARTMENT                                                AGE GENDER
+-------------------------------------------------- ---------- ----------
+  SEMESTER       CGPA
+---------- ----------
+CSE                                                        24 Male
+         8          8
+
+Amit                                                      E01
+ETC                                                        27 Male
+         6        9.2
+
+
+STUDENT_NAME                                             ROLL
+-------------------------------------------------- ----------
+DEPARTMENT                                                AGE GENDER
+-------------------------------------------------- ---------- ----------
+  SEMESTER       CGPA
+---------- ----------
+Amrita                                                    E02
+ETC                                                        22 Female
+         6       7.45
+
+Tarkeshwar                                               E03
+EEE                                                        26 Male
+         6       8.45
+
+STUDENT_NAME                                             ROLL
+-------------------------------------------------- ----------
+DEPARTMENT                                                AGE GENDER
+-------------------------------------------------- ---------- ----------
+  SEMESTER       CGPA
+---------- ----------
+
+Neha                                                      C04
+CSE                                                        23 Female
+         6       8.45
+
+
+10 rows selected.
+
+SQL>
+SQL> -- b) Display the roll, age, and gender for the students from either CSE or IT department
+SQL> SELECT Roll, Age, Gender FROM STUDENT_2 WHERE Department IN ('CSE', 'IT');
+
+      ROLL        AGE GENDER
+---------- ---------- ----------
+       I01         28 Male
+       I02         27 Male
+       I03         25 Female
+       C01         25 Female
+       C02         28 Male
+       C03         24 Male
+       C04         23 Female
+
+7 rows selected.
+
+SQL>
+SQL> -- c) Display the Student_Name, roll, and department for the students whose CGPA is between 7.5 and 9.5
+SQL> SELECT Student_Name, Roll, Department FROM STUDENT_2 WHERE CGPA BETWEEN 7.5 AND 9.5;
+
+STUDENT_NAME                                             ROLL
+-------------------------------------------------- ----------
+DEPARTMENT
+--------------------------------------------------
+Shiv                                                      I01
+IT
+
+Kaushal                                                   I02
+IT
+
+Pragyan                                                   I03
+IT
+
+
+STUDENT_NAME                                             ROLL
+-------------------------------------------------- ----------
+DEPARTMENT
+--------------------------------------------------
+Seenu                                                     C01
+CSE
+
+Kunal                                                     C02
+CSE
+
+Lokesh                                                    C03
+CSE
+
+
+STUDENT_NAME                                             ROLL
+-------------------------------------------------- ----------
+DEPARTMENT
+--------------------------------------------------
+Amit                                                      E01
+ETC
+
+Tarkeshwar                                                E03
+EEE
+
+Neha                                                      C04
+CSE
+
+
+9 rows selected.
+
+SQL>
+SQL> -- d) Display the student details in descending order of their CGPA
+SQL> SELECT * FROM STUDENT_2 ORDER BY CGPA DESC;
+
+STUDENT_NAME                                             ROLL
+-------------------------------------------------- ----------
+DEPARTMENT                                                AGE GENDER
+-------------------------------------------------- ---------- ----------
+  SEMESTER       CGPA
+---------- ----------
+Seenu                                                     C01
+CSE                                                        25 Female
+         8        9.5
+
+Kaushal                                                   I02
+IT                                                         27 Male
+         7        9.5
+
+STUDENT_NAME                                             ROLL
+-------------------------------------------------- ----------
+DEPARTMENT                                                AGE GENDER
+-------------------------------------------------- ---------- ----------
+  SEMESTER       CGPA
+---------- ----------
+
+Kunal                                                     C02
+CSE                                                        28 Male
+         8       9.35
+
+Amit                                                      E01
+ETC                                                        27 Male
+
+STUDENT_NAME                                             ROLL
+-------------------------------------------------- ----------
+DEPARTMENT                                                AGE GENDER
+-------------------------------------------------- ---------- ----------
+  SEMESTER       CGPA
+---------- ----------
+         6        9.2
+
+Shiv                                                      I01
+IT                                                         28 Male
+         7        8.5
+
+Neha                                                      C04
+
+STUDENT_NAME                                             ROLL
+-------------------------------------------------- ----------
+DEPARTMENT                                                AGE GENDER
+-------------------------------------------------- ---------- ----------
+  SEMESTER       CGPA
+---------- ----------
+CSE                                                        23 Female
+         6       8.45
+
+Tarkeshwar                                                E03
+EEE                                                        26 Male
+         6       8.45
+
+
+STUDENT_NAME                                             ROLL
+-------------------------------------------------- ----------
+DEPARTMENT                                                AGE GENDER
+-------------------------------------------------- ---------- ----------
+  SEMESTER       CGPA
+---------- ----------
+Lokesh                                                    C03
+CSE                                                        24 Male
+         8          8
+
+Pragyan                                                   I03
+IT                                                         25 Female
+         7        7.5
+
+STUDENT_NAME                                             ROLL
+-------------------------------------------------- ----------
+DEPARTMENT                                                AGE GENDER
+-------------------------------------------------- ---------- ----------
+  SEMESTER       CGPA
+---------- ----------
+
+Amrita                                                    E02
+ETC                                                        22 Female
+         6       7.45
+
+
+10 rows selected.
+
+SQL>
+SQL> -- e) Display the Student_Name in ascending order
+SQL> SELECT Student_Name FROM STUDENT_2 ORDER BY Student_Name ASC;
+
+STUDENT_NAME
+--------------------------------------------------
+Amit
+Amrita
+Kaushal
+Kunal
+Lokesh
+Neha
+Pragyan
+Seenu
+Shiv
+Tarkeshwar
+
+10 rows selected.
+
+SQL>
+SQL> -- f) Display the total age of the students
+SQL> SELECT SUM(Age) AS Total_Age FROM STUDENT_2;
+
+ TOTAL_AGE
+----------
+       255
+
+SQL>
+SQL> -- g) Display the average CGPA of the female students who belong to either CSE or IT
+SQL> SELECT AVG(CGPA) AS Avg_CGPA FROM STUDENT_2 WHERE Gender = 'Female' AND Department IN ('CSE', 'IT');
+
+  AVG_CGPA
+----------
+8.48333333
+
+SQL>
+SQL> -- h) Display the maximum and minimum CGPA of the student table
+SQL> SELECT MAX(CGPA) AS Max_CGPA, MIN(CGPA) AS Min_CGPA FROM STUDENT_2;
+
+  MAX_CGPA   MIN_CGPA
+---------- ----------
+       9.5       7.45
+
+SQL>
+SQL> -- i) Display the details of the youngest and oldest student of the class
+SQL> SELECT * FROM STUDENT_2 WHERE Age = (SELECT MAX(Age) FROM STUDENT_2)
+  2  UNION
+  3  SELECT * FROM STUDENT_2 WHERE Age = (SELECT MIN(Age) FROM STUDENT_2);
+
+STUDENT_NAME                                             ROLL
+-------------------------------------------------- ----------
+DEPARTMENT                                                AGE GENDER
+-------------------------------------------------- ---------- ----------
+  SEMESTER       CGPA
+---------- ----------
+Amrita                                                    E02
+ETC                                                        22 Female
+         6       7.45
+
+Kunal                                                     C02
+CSE                                                        28 Male
+         8       9.35
+
+STUDENT_NAME                                             ROLL
+-------------------------------------------------- ----------
+DEPARTMENT                                                AGE GENDER
+-------------------------------------------------- ---------- ----------
+  SEMESTER       CGPA
+---------- ----------
+
+Shiv                                                      I01
+IT                                                         28 Male
+         7        8.5
+
+
+SQL>
+SQL>

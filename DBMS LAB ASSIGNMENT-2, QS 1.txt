@@ -1,0 +1,253 @@
+
+SQL*Plus: Release 11.2.0.2.0 Production on Thu Mar 7 03:40:32 2024
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> CONNECT SYSTEM AS SYSDBA
+Enter password:
+Connected.
+SQL> DROP TABLE ITEM_TRANS;
+
+Table dropped.
+
+SQL> -- Create ITEM_MASTER table
+SQL> CREATE TABLE ITEM_MASTER (
+  2      Item_no INT PRIMARY KEY,
+  3      Name VARCHAR(255) UNIQUE NOT NULL,
+  4      Quantity_available INT DEFAULT 100,
+  5      Category CHAR(1) CHECK (Category IN ('A', 'B', 'C')),
+  6      Unit_measure VARCHAR(10),
+  7      Reorder_level INT NOT NULL,
+  8      Reorder_quantity INT NOT NULL,
+  9      Rate INT NOT NULL
+ 10  );
+CREATE TABLE ITEM_MASTER (
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL>
+SQL> -- Insert data into ITEM_MASTER table
+SQL>
+SQL> INSERT INTO ITEM_MASTER VALUES(1, 'Mobile', 5000, 'A', 'pcs', 500, 2000, 8999);
+
+1 row created.
+
+SQL> INSERT INTO ITEM_MASTER VALUES(2, 'Headphone', 1000, 'A', 'pcs', 300, 1000, 999);
+
+1 row created.
+
+SQL> INSERT INTO ITEM_MASTER VALUES(3, 'Charger', 700, 'A', 'pcs', 400, 1000, 399);
+
+1 row created.
+
+SQL> INSERT INTO ITEM_MASTER VALUES(4, 'Monitor', 1000, 'B', 'pcs', 100, 2000, 10000);
+
+1 row created.
+
+SQL> INSERT INTO ITEM_MASTER VALUES(5, 'Mouse', 100, 'B', 'pcs', 100, 200, 500);
+
+1 row created.
+
+SQL> INSERT INTO ITEM_MASTER VALUES(6, 'Keyboard', 100, 'B', 'pcs', 50, 200, 800);
+
+1 row created.
+
+SQL> INSERT INTO ITEM_MASTER VALUES(7, 'HDD', 100, 'B', 'pcs', 100, 500, 3000);
+
+1 row created.
+
+SQL> INSERT INTO ITEM_MASTER VALUES(8, 'Fridge', 100, 'C', 'pcs', 100, 500, 15000);
+
+1 row created.
+
+SQL> INSERT INTO ITEM_MASTER VALUES(9, 'TV Set', 1000, 'C', 'pcs', 500, 5000, 30000);
+
+1 row created.
+
+SQL> INSERT INTO ITEM_MASTER VALUES(10, 'AC', 1000, 'C', 'pcs', 500, 3000, 40000);
+
+1 row created.
+
+SQL>
+SQL> -- Operations
+SQL> -- a) Display item_no, name, and rate for all items
+SQL> SELECT Item_no, Name, Rate FROM ITEM_MASTER;
+
+   ITEM_NO NAME                                                     RATE
+---------- -------------------------------------------------- ----------
+         1 Mobile                                                   8999
+         2 Headphone                                                 999
+         3 Charger                                                   399
+         4 Monitor                                                 10000
+         5 Mouse                                                     500
+         6 Keyboard                                                  800
+         7 HDD                                                      3000
+         8 Fridge                                                  15000
+         9 TV Set                                                  30000
+        10 AC                                                      40000
+
+10 rows selected.
+
+SQL>
+SQL> -- b) Display details of category A and rate less than 1000
+SQL> SELECT * FROM ITEM_MASTER WHERE Category = 'A' AND Rate < 1000;
+
+   ITEM_NO NAME                                               QUANTITY_AVAILABLE
+---------- -------------------------------------------------- ------------------
+C UNIT_MEASU REORDER_LEVEL REORDER_QUANTITY       RATE
+- ---------- ------------- ---------------- ----------
+         2 Headphone                                                        1000
+A pcs                  300             1000        999
+
+         3 Charger                                                           700
+A pcs                  400             1000        399
+
+
+SQL>
+SQL> -- c) Display products in descending order of quantity_available for category 'B'
+SQL> SELECT * FROM ITEM_MASTER WHERE Category = 'B' ORDER BY Quantity_available DESC;
+
+   ITEM_NO NAME                                               QUANTITY_AVAILABLE
+---------- -------------------------------------------------- ------------------
+C UNIT_MEASU REORDER_LEVEL REORDER_QUANTITY       RATE
+- ---------- ------------- ---------------- ----------
+         4 Monitor                                                          1000
+B pcs                  100             2000      10000
+
+         6 Keyboard                                                          100
+B pcs                   50              200        800
+
+         7 HDD                                                               100
+B pcs                  100              500       3000
+
+
+   ITEM_NO NAME                                               QUANTITY_AVAILABLE
+---------- -------------------------------------------------- ------------------
+C UNIT_MEASU REORDER_LEVEL REORDER_QUANTITY       RATE
+- ---------- ------------- ---------------- ----------
+         5 Mouse                                                             100
+B pcs                  100              200        500
+
+
+SQL>
+SQL> -- d) Display details of items starting with "M" in descending order of re-order level
+SQL> SELECT * FROM ITEM_MASTER WHERE Name LIKE 'M%' ORDER BY Reorder_level DESC;
+
+   ITEM_NO NAME                                               QUANTITY_AVAILABLE
+---------- -------------------------------------------------- ------------------
+C UNIT_MEASU REORDER_LEVEL REORDER_QUANTITY       RATE
+- ---------- ------------- ---------------- ----------
+         1 Mobile                                                           5000
+A pcs                  500             2000       8999
+
+         5 Mouse                                                             100
+B pcs                  100              200        500
+
+         4 Monitor                                                          1000
+B pcs                  100             2000      10000
+
+
+SQL>
+SQL> -- e) Display items in ascending order of their names
+SQL> SELECT * FROM ITEM_MASTER ORDER BY Name ASC;
+
+   ITEM_NO NAME                                               QUANTITY_AVAILABLE
+---------- -------------------------------------------------- ------------------
+C UNIT_MEASU REORDER_LEVEL REORDER_QUANTITY       RATE
+- ---------- ------------- ---------------- ----------
+        10 AC                                                               1000
+C pcs                  500             3000      40000
+
+         3 Charger                                                           700
+A pcs                  400             1000        399
+
+         8 Fridge                                                            100
+C pcs                  100              500      15000
+
+
+   ITEM_NO NAME                                               QUANTITY_AVAILABLE
+---------- -------------------------------------------------- ------------------
+C UNIT_MEASU REORDER_LEVEL REORDER_QUANTITY       RATE
+- ---------- ------------- ---------------- ----------
+         7 HDD                                                               100
+B pcs                  100              500       3000
+
+         2 Headphone                                                        1000
+A pcs                  300             1000        999
+
+         6 Keyboard                                                          100
+B pcs                   50              200        800
+
+
+   ITEM_NO NAME                                               QUANTITY_AVAILABLE
+---------- -------------------------------------------------- ------------------
+C UNIT_MEASU REORDER_LEVEL REORDER_QUANTITY       RATE
+- ---------- ------------- ---------------- ----------
+         1 Mobile                                                           5000
+A pcs                  500             2000       8999
+
+         4 Monitor                                                          1000
+B pcs                  100             2000      10000
+
+         5 Mouse                                                             100
+B pcs                  100              200        500
+
+
+   ITEM_NO NAME                                               QUANTITY_AVAILABLE
+---------- -------------------------------------------------- ------------------
+C UNIT_MEASU REORDER_LEVEL REORDER_QUANTITY       RATE
+- ---------- ------------- ---------------- ----------
+         9 TV Set                                                           1000
+C pcs                  500             5000      30000
+
+
+10 rows selected.
+
+SQL>
+SQL> -- Create ITEM_TRANS table with foreign key constraint
+SQL> CREATE TABLE ITEM_TRANS (
+  2      It_no INT,
+  3      Trans_date DATE,
+  4      qty INT,
+  5      FOREIGN KEY (It_no) REFERENCES ITEM_MASTER (Item_no)
+  6  );
+
+Table created.
+
+SQL>
+SQL> -- Insert data into ITEM_TRANS table
+SQL> INSERT INTO ITEM_TRANS VALUES(1, '2024-03-01', 100);
+INSERT INTO ITEM_TRANS VALUES(1, '2024-03-01', 100)
+                                 *
+ERROR at line 1:
+ORA-01861: literal does not match format string
+
+
+SQL> INSERT INTO ITEM_TRANS VALUES(3, '2024-03-02', 50);
+INSERT INTO ITEM_TRANS VALUES(3, '2024-03-02', 50)
+                                 *
+ERROR at line 1:
+ORA-01861: literal does not match format string
+
+
+SQL> INSERT INTO ITEM_TRANS VALUES(5, '2024-03-03', 25);
+INSERT INTO ITEM_TRANS VALUES(5, '2024-03-03', 25)
+                                 *
+ERROR at line 1:
+ORA-01861: literal does not match format string
+
+
+SQL>
+SQL> -- Display data from ITEM_TRANS table
+SQL> SELECT * FROM ITEM_TRANS;
+
+no rows selected
+
+SQL>
+SQL> commit;
+
+Commit complete.
+
+SQL>

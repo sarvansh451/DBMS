@@ -1,0 +1,528 @@
+
+SQL*Plus: Release 11.2.0.2.0 Production on Thu Mar 7 03:52:38 2024
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> CONNECT SYSTEM AS SYSDBA
+Enter password:
+Connected.
+SQL> DROP TABLE EMP;
+DROP TABLE EMP
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> -- Create CUSTOMER table
+SQL> CREATE TABLE CUSTOMER (
+  2      Cust_ID INT PRIMARY KEY NOT NULL,
+  3      Cust_name VARCHAR(255) UNIQUE NOT NULL,
+  4      Gender CHAR(1) CHECK (Gender IN ('M', 'F', 'T')),
+  5      Age INT CHECK (Age >= 18 AND Age < 80),
+  6      City VARCHAR(255) NOT NULL
+  7  );
+
+Table created.
+
+SQL>
+SQL> -- Insert data into CUSTOMER table
+SQL> INSERT INTO CUSTOMER VALUES(1, 'John Doe', 'M', 25, 'BBSR');
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER VALUES(2, 'Jane Smith', 'F', 30, 'CTC');
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER VALUES(3, 'Bob Johnson', 'M', 40, 'BBSR');
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER VALUES(4, 'Alice Brown', 'F', 22, 'CTC');
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER VALUES(5, 'Tom White', 'M', 35, 'BBSR');
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER VALUES(6, 'Eva Green', 'F', 28, 'CTC');
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER VALUES(7, 'Alex Turner', 'M', 50, 'BBSR');
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER VALUES(8, 'Ava Johnson', 'F', 19, 'CTC');
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER VALUES(9, 'Michael Black', 'M', 45, 'BBSR');
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER VALUES(10, 'Olivia Davis', 'F', 26, 'CTC');
+
+1 row created.
+
+SQL>
+SQL> -- Operations
+SQL> -- a. Display the content of the table
+SQL> SELECT * FROM CUSTOMER;
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+G        AGE
+- ----------
+CITY
+--------------------------------------------------------------------------------
+         1
+John Doe
+M         25
+BBSR
+
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+G        AGE
+- ----------
+CITY
+--------------------------------------------------------------------------------
+         2
+Jane Smith
+F         30
+CTC
+
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+G        AGE
+- ----------
+CITY
+--------------------------------------------------------------------------------
+         3
+Bob Johnson
+M         40
+BBSR
+
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+G        AGE
+- ----------
+CITY
+--------------------------------------------------------------------------------
+         4
+Alice Brown
+F         22
+CTC
+
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+G        AGE
+- ----------
+CITY
+--------------------------------------------------------------------------------
+         5
+Tom White
+M         35
+BBSR
+
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+G        AGE
+- ----------
+CITY
+--------------------------------------------------------------------------------
+         6
+Eva Green
+F         28
+CTC
+
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+G        AGE
+- ----------
+CITY
+--------------------------------------------------------------------------------
+         7
+Alex Turner
+M         50
+BBSR
+
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+G        AGE
+- ----------
+CITY
+--------------------------------------------------------------------------------
+         8
+Ava Johnson
+F         19
+CTC
+
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+G        AGE
+- ----------
+CITY
+--------------------------------------------------------------------------------
+         9
+Michael Black
+M         45
+BBSR
+
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+G        AGE
+- ----------
+CITY
+--------------------------------------------------------------------------------
+        10
+Olivia Davis
+F         26
+CTC
+
+
+10 rows selected.
+
+SQL>
+SQL> -- b. Display details of customers from either BBSR or CTC
+SQL> SELECT * FROM CUSTOMER WHERE City IN ('BBSR', 'CTC');
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+G        AGE
+- ----------
+CITY
+--------------------------------------------------------------------------------
+         1
+John Doe
+M         25
+BBSR
+
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+G        AGE
+- ----------
+CITY
+--------------------------------------------------------------------------------
+         2
+Jane Smith
+F         30
+CTC
+
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+G        AGE
+- ----------
+CITY
+--------------------------------------------------------------------------------
+         3
+Bob Johnson
+M         40
+BBSR
+
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+G        AGE
+- ----------
+CITY
+--------------------------------------------------------------------------------
+         4
+Alice Brown
+F         22
+CTC
+
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+G        AGE
+- ----------
+CITY
+--------------------------------------------------------------------------------
+         5
+Tom White
+M         35
+BBSR
+
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+G        AGE
+- ----------
+CITY
+--------------------------------------------------------------------------------
+         6
+Eva Green
+F         28
+CTC
+
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+G        AGE
+- ----------
+CITY
+--------------------------------------------------------------------------------
+         7
+Alex Turner
+M         50
+BBSR
+
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+G        AGE
+- ----------
+CITY
+--------------------------------------------------------------------------------
+         8
+Ava Johnson
+F         19
+CTC
+
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+G        AGE
+- ----------
+CITY
+--------------------------------------------------------------------------------
+         9
+Michael Black
+M         45
+BBSR
+
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+G        AGE
+- ----------
+CITY
+--------------------------------------------------------------------------------
+        10
+Olivia Davis
+F         26
+CTC
+
+
+10 rows selected.
+
+SQL>
+SQL> -- c. Display Cust_ID, Cust_name, and Age of all customers
+SQL> SELECT Cust_ID, Cust_name, Age FROM CUSTOMER;
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+       AGE
+----------
+         1
+John Doe
+        25
+
+         2
+Jane Smith
+        30
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+       AGE
+----------
+
+         3
+Bob Johnson
+        40
+
+         4
+Alice Brown
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+       AGE
+----------
+        22
+
+         5
+Tom White
+        35
+
+         6
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+       AGE
+----------
+Eva Green
+        28
+
+         7
+Alex Turner
+        50
+
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+       AGE
+----------
+         8
+Ava Johnson
+        19
+
+         9
+Michael Black
+        45
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+       AGE
+----------
+
+        10
+Olivia Davis
+        26
+
+
+10 rows selected.
+
+SQL>
+SQL> -- d. Add a new column "Purchase_Amount" and update values for all records
+SQL> ALTER TABLE CUSTOMER ADD COLUMN Purchase_Amount INT NOT NULL DEFAULT 0;
+ALTER TABLE CUSTOMER ADD COLUMN Purchase_Amount INT NOT NULL DEFAULT 0
+                         *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL>
+SQL> -- e. Display name and city for all male customers with purchase_amount >= 5000
+SQL> SELECT Cust_name, City FROM CUSTOMER WHERE Gender = 'M' AND Purchase_Amount >= 5000;
+SELECT Cust_name, City FROM CUSTOMER WHERE Gender = 'M' AND Purchase_Amount >= 5000
+                                                            *
+ERROR at line 1:
+ORA-00904: "PURCHASE_AMOUNT": invalid identifier
+
+
+SQL>
+SQL> -- f. Display details of customers whose name starts with 'A' or ends with 'a'
+SQL> SELECT * FROM CUSTOMER WHERE Cust_name LIKE 'A%' OR Cust_name LIKE '%a';
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+G        AGE
+- ----------
+CITY
+--------------------------------------------------------------------------------
+         4
+Alice Brown
+F         22
+CTC
+
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+G        AGE
+- ----------
+CITY
+--------------------------------------------------------------------------------
+         7
+Alex Turner
+M         50
+BBSR
+
+
+   CUST_ID
+----------
+CUST_NAME
+--------------------------------------------------------------------------------
+G        AGE
+- ----------
+CITY
+--------------------------------------------------------------------------------
+         8
+Ava Johnson
+F         19
+CTC
+
+
+SQL>
+SQL> -- g. Display details of female customers in descending order of purchase_amount
+SQL> SELECT * FROM CUSTOMER WHERE Gender = 'F' ORDER BY Purchase_Amount DESC;
+SELECT * FROM CUSTOMER WHERE Gender = 'F' ORDER BY Purchase_Amount DESC
+                                                   *
+ERROR at line 1:
+ORA-00904: "PURCHASE_AMOUNT": invalid identifier
+
+
+SQL>
+SQL> commit;
+
+Commit complete.
+
+SQL>

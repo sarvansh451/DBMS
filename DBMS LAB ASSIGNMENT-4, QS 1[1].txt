@@ -1,0 +1,292 @@
+
+SQL*Plus: Release 11.2.0.2.0 Production on Sat Mar 18 19:13:00 2024
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> CONNECT SYSTEM AS SYSDBA
+Enter password:
+Connected.
+SQL>  --Create EMP table
+SQL> CREATE TABLE EMP (
+  2      Emp_ID INT PRIMARY KEY,
+  3      Emp_Name VARCHAR(50) NOT NULL,
+  4      Job VARCHAR(50),
+  5      Manager INT,
+  6      Hire_Date DATE,
+  7      Salary DECIMAL(10, 2) NOT NULL,
+  8      Commission DECIMAL(10, 2),
+  9      Dept INT
+ 10  );
+
+Table created.
+
+SQL>
+SQL> -- Insert records into EMP table
+SQL> INSERT INTO EMP VALUES(7369, 'SMITH', 'CLERK', 7902, '17-DEC-80', 800, NULL, 20);
+
+1 row created.
+
+SQL> INSERT INTO EMP VALUES(7499, 'ALLEN', 'SALESMAN', 7698, '20-FEB-81', 1600, 300, 30);
+
+1 row created.
+
+SQL> INSERT INTO EMP VALUES(7521, 'WARD', 'SALESMAN', 7698, '22-FEB-81', 1250, 500, 30);
+
+1 row created.
+
+SQL> INSERT INTO EMP VALUES(7566, 'JONES', 'MANAGER', 7839, '02-APR-81', 2975, NULL, 20);
+
+1 row created.
+
+SQL> INSERT INTO EMP VALUES(7654, 'MARTIN', 'SALESMAN', 7698, '28-SEP-81', 1250, 1400, 30);
+
+1 row created.
+
+SQL> INSERT INTO EMP VALUES(7698, 'BLAKE', 'MANAGER', 7839, '01-MAY-81', 2850, NULL, 30);
+
+1 row created.
+
+SQL> INSERT INTO EMP VALUES(7782, 'CLARK', 'MANAGER', 7839, '09-JUN-81', 2450, NULL, 10);
+
+1 row created.
+
+SQL> INSERT INTO EMP VALUES(7788, 'SCOTT', 'ANALYST', 7566, '09-NOV-81', 3000, NULL, 20);
+
+1 row created.
+
+SQL> INSERT INTO EMP VALUES(7839, 'KING', 'PRESIDENT', NULL, '17-NOV-81', 5000, NULL, 10);
+
+1 row created.
+
+SQL> INSERT INTO EMP VALUES(7844, 'TURNER', 'SALESMAN', 7698, '08-SEP-81', 1500, 0, 30);
+
+1 row created.
+
+SQL> INSERT INTO EMP VALUES(7876, 'ADAMS', 'CLERK', 7788, '23-SEP-81', 1100, NULL, 20);
+
+1 row created.
+
+SQL> INSERT INTO EMP VALUES(7900, 'JAMES', 'CLERK', 7698, '03-DEC-81', 950, NULL, 30);
+
+1 row created.
+
+SQL> INSERT INTO EMP VALUES(7902, 'FORD', 'ANALYST', 7566, '03-DEC-81', 3000, NULL, 20);
+
+1 row created.
+
+SQL> INSERT INTO EMP VALUES(7934, 'MILLER', 'CLERK', 7782, '23-JAN-82', 1300, NULL, 10);
+
+1 row created.
+
+SQL>
+SQL> -- A. Display the content of the table
+SQL> SELECT * FROM EMP;
+
+    EMP_ID EMP_NAME
+---------- --------------------------------------------------
+JOB                                                   MANAGER HIRE_DATE
+-------------------------------------------------- ---------- ---------
+    SALARY COMMISSION       DEPT
+---------- ---------- ----------
+      7369 SMITH
+CLERK                                                    7902 17-DEC-80
+       800                    20
+
+      7499 ALLEN
+SALESMAN                                                 7698 20-FEB-81
+      1600        300         30
+
+    EMP_ID EMP_NAME
+---------- --------------------------------------------------
+JOB                                                   MANAGER HIRE_DATE
+-------------------------------------------------- ---------- ---------
+    SALARY COMMISSION       DEPT
+---------- ---------- ----------
+
+      7521 WARD
+SALESMAN                                                 7698 22-FEB-81
+      1250        500         30
+
+      7566 JONES
+MANAGER                                                  7839 02-APR-81
+
+    EMP_ID EMP_NAME
+---------- --------------------------------------------------
+JOB                                                   MANAGER HIRE_DATE
+-------------------------------------------------- ---------- ---------
+    SALARY COMMISSION       DEPT
+---------- ---------- ----------
+      2975                    20
+
+      7654 MARTIN
+SALESMAN                                                 7698 28-SEP-81
+      1250       1400         30
+
+      7698 BLAKE
+
+    EMP_ID EMP_NAME
+---------- --------------------------------------------------
+JOB                                                   MANAGER HIRE_DATE
+-------------------------------------------------- ---------- ---------
+    SALARY COMMISSION       DEPT
+---------- ---------- ----------
+MANAGER                                                  7839 01-MAY-81
+      2850                    30
+
+      7782 CLARK
+MANAGER                                                  7839 09-JUN-81
+      2450                    10
+
+
+    EMP_ID EMP_NAME
+---------- --------------------------------------------------
+JOB                                                   MANAGER HIRE_DATE
+-------------------------------------------------- ---------- ---------
+    SALARY COMMISSION       DEPT
+---------- ---------- ----------
+      7788 SCOTT
+ANALYST                                                  7566 09-NOV-81
+      3000                    20
+
+      7839 KING
+PRESIDENT                                                     17-NOV-81
+      5000                    10
+
+    EMP_ID EMP_NAME
+---------- --------------------------------------------------
+JOB                                                   MANAGER HIRE_DATE
+-------------------------------------------------- ---------- ---------
+    SALARY COMMISSION       DEPT
+---------- ---------- ----------
+
+      7844 TURNER
+SALESMAN                                                 7698 08-SEP-81
+      1500          0         30
+
+      7876 ADAMS
+CLERK                                                    7788 23-SEP-81
+
+    EMP_ID EMP_NAME
+---------- --------------------------------------------------
+JOB                                                   MANAGER HIRE_DATE
+-------------------------------------------------- ---------- ---------
+    SALARY COMMISSION       DEPT
+---------- ---------- ----------
+      1100                    20
+
+      7900 JAMES
+CLERK                                                    7698 03-DEC-81
+       950                    30
+
+      7902 FORD
+
+    EMP_ID EMP_NAME
+---------- --------------------------------------------------
+JOB                                                   MANAGER HIRE_DATE
+-------------------------------------------------- ---------- ---------
+    SALARY COMMISSION       DEPT
+---------- ---------- ----------
+ANALYST                                                  7566 03-DEC-81
+      3000                    20
+
+      7934 MILLER
+CLERK                                                    7782 23-JAN-82
+      1300                    10
+
+
+14 rows selected.
+
+SQL>
+SQL> -- B. Display the Emp_ID, Emp_name and Salary for salesman only
+SQL> SELECT Emp_ID, Emp_Name, Salary FROM EMP WHERE Job = 'SALESMAN';
+
+ EMP_ID    EMP_NAME         SALARY
+--------   -----------      ---------
+7499        ALLEN           1600   
+7521        WARD            1250   
+7654        MARTIN          1250  
+7844        TURNER          1500     
+
+4 rows selected.
+
+SQL>
+SQL> -- C. Display the details of the employee who is getting minimum salary
+SQL> SELECT * FROM EMP WHERE Salary = (SELECT MIN(Salary) FROM EMP);
+
+    EMP_ID EMP_NAME
+---------- --------------------------------------------------
+JOB                                                   MANAGER HIRE_DATE
+-------------------------------------------------- ---------- ---------
+    SALARY COMMISSION       DEPT
+---------- ---------- ----------
+      7369 SMITH
+CLERK                                                    7902 17-DEC-80
+       800                    20
+
+
+SQL>
+SQL> -- D. Display the details of the employee who works under the manager 7698 and getting highest commission
+SQL> SELECT * FROM EMP WHERE Manager = 7698 AND Commission = (SELECT MAX(Commission) FROM EMP WHERE Manager = 7698);
+
+    EMP_ID EMP_NAME
+---------- --------------------------------------------------
+JOB                                                   MANAGER HIRE_DATE
+-------------------------------------------------- ---------- ---------
+    SALARY COMMISSION       DEPT
+---------- ---------- ----------
+      7654 MARTIN
+SALESMAN                                                 7698 28-SEP-81
+      1250       1400         30
+
+
+SQL>
+SQL> -- E. Display the total salary of the employees working under 7839
+SQL> SELECT SUM(Salary) AS Total_Salary FROM EMP WHERE Manager = 7839;
+
+TOTAL_SALARY
+------------
+        8275
+
+SQL>
+SQL> -- F. Display the dept and avg salary of the employees in dept wise manner
+SQL> SELECT Dept, AVG(Salary) AS Avg_Salary FROM EMP GROUP BY Dept;
+
+      DEPT AVG_SALARY
+---------- ----------
+        30 1566.66667
+        20       2175
+        10 2916.66667
+
+SQL>
+SQL> -- G. Display the dept and avg salary of the employees in dept wise manner only when avg salary > 2000
+SQL> SELECT Dept, AVG(Salary) AS Avg_Salary FROM EMP GROUP BY Dept HAVING AVG(Salary) > 2000;
+
+      DEPT AVG_SALARY
+---------- ----------
+        20       2175
+        10 2916.66667
+
+SQL>
+SQL> -- H. Display the dept and avg salary of only those employees whose salary > 2000 in dept wise manner
+SQL> SELECT Dept, AVG(Salary) AS Avg_Salary FROM EMP WHERE Salary > 2000 GROUP BY Dept;
+
+      DEPT AVG_SALARY
+---------- ----------
+        30       2850
+        20 2991.66667
+        10       3725
+
+SQL>
+SQL> -- I. Display the dept and avg salary of only those employees whose salary > 2000 in dept wise manner only when avg salary < 3000
+SQL> SELECT Dept, AVG(Salary) AS Avg_Salary FROM EMP WHERE Salary > 2000 GROUP BY Dept HAVING AVG(Salary) < 3000;
+
+      DEPT AVG_SALARY
+---------- ----------
+        30       2850
+        20 2991.66667
+
+SQL> commit;
+
+Commit complete.
+
+SQL>
